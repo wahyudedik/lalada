@@ -9,69 +9,70 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <div class="flex justify-between items-center mb-4 sm:flex-wrap">
-                        <div class="flex items-center mb-4 sm:w-full">
-                            <div class="sm:w-3/4">
-                                <input type="text" class="w-full rounded-md border border-gray-300 px-4 py-2"
-                                    placeholder="Search Category">
-                            </div>
-                            <div class="sm:w-1/4">
-                                <x-secondary-button class="ml-3">
-                                    {{ __('Serach') }}
-                                </x-secondary-button>
+                    {{-- bootsrap --}}
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Search Category"
+                                    aria-label="Search Category" aria-describedby="button-addon2" id="searchInput">
+                                <button class="btn btn-outline-secondary" type="button" id="button-addon2"
+                                    onclick="searchCategories()">Search</button>
                             </div>
                         </div>
-                        <div class="flex items-center justify-end sm:w-full">
-                            <a href="/admin/category/create" class="ml-auto">
-                                <x-primary-button>
-                                    {{ __('Add category') }}
-                                </x-primary-button>
-                            </a>
+                        <div class="col-md-3">
+                            <a href="/admin/category/create" class="btn btn-primary float-right">Add Category</a>
                         </div>
                     </div>
 
-                    <div class="mt-6 grid grid-cols-3 gap-6 sm:grid-cols-3 lg:grid-cols-3">
-                        @foreach ($categories->chunk(9) as $chunkOfCategories)
+                    <div class="row">
+                        @foreach ($categories->chunk(3) as $chunkOfCategories)
                             @foreach ($chunkOfCategories as $category)
-                                <div class="group relative">
-                                    <div class="h-40 w-40 rounded-md">
-                                        <h3 class="text-sm text-gray-700">
-                                            {{ $category->name }}
-                                            <p class="mt-1 text-sm text-gray-500">{{ $category->description }}</p>
-                                        </h3>
-                                    </div>
-                                    <div class="flex justify-between mt-1">
-                                        <a href="">
-                                            <x-primary-button class="w-full">
-                                                {{ __('See Products') }}
-                                            </x-primary-button>
-                                        </a>
-                                    </div>
-                                    <div class="flex justify-between mt-1">
-                                        <a href="">
-                                            <x-secondary-button class="w-full">
-                                                {{ __('Update Category') }}
-                                            </x-secondary-button>
-                                        </a>
-                                    </div>
-                                    <div class="flex justify-between mt-1">
-                                        <form action="admin/" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <x-danger-button class="w-full" onclick="return confirm('Are you sure you want to delete this category?')">
-                                                {{ __('Delete Category') }}
-                                            </x-danger-button>
-                                        </form>
+                                <div class="col-md-3 mb-3 category-card" style="display: block;">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><strong>{{ $category->name }}</strong></h5>
+                                            <p class="card-text">{{ $category->description }}</p>
+                                        </div>
+                                        <div class="card-footer d-flex flex-column align-items-start">
+                                            <a href="#" class="btn btn-primary mb-2">See Products</a>
+                                            <a href="#" class="btn btn-secondary mb-2">Update Category</a>
+                                            <form action="admin/" method="post" class="mt-0">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-danger mb-2"
+                                                    onclick="return confirm('Are you sure you want to delete this category?')">Delete
+                                                    Category</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
                         @endforeach
                     </div>
+
                     <div class="mt-3">
-
                         {{ $categories->links() }}
-
                     </div>
+
+                    <script>
+                        function searchCategories() {
+                            let searchInput = document.getElementById('searchInput').value.toLowerCase();
+                            let categoryCards = document.getElementsByClassName('category-card');
+
+                            for (let i = 0; i < categoryCards.length; i++) {
+                                let categoryName = categoryCards[i].getElementsByTagName('h5')[0].textContent.toLowerCase();
+                                let categoryDescription = categoryCards[i].getElementsByTagName('p')[0].textContent.toLowerCase();
+
+                                if (categoryName.includes(searchInput) || categoryDescription.includes(searchInput)) {
+                                    categoryCards[i].style.display = 'block';
+                                } else {
+                                    categoryCards[i].style.display = 'none';
+                                }
+                            }
+                        }
+                    </script>
+
+
                 </div>
             </div>
         </div>
