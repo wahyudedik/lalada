@@ -24,6 +24,13 @@
                         </div>
                     </div>
 
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+
                     <div class="row">
                         @foreach ($categories->chunk(3) as $chunkOfCategories)
                             @foreach ($chunkOfCategories as $category)
@@ -35,14 +42,18 @@
                                         </div>
                                         <div class="card-footer d-flex flex-column align-items-start">
                                             <a href="#" class="btn btn-primary mb-2">See Products</a>
-                                            <a href="#" class="btn btn-secondary mb-2">Update Category</a>
-                                            <form action="admin/" method="post" class="mt-0">
+                                            <a href="{{ route('admin.category.edit', $category->id) }}" class="btn btn-secondary mb-2">Update Category</a>
+                                            <form action="{{ route('admin.category.destroy', $category->id) }}"
+                                                method="POST">
                                                 @csrf
-                                                @method('delete')
+                                                @method('DELETE')
                                                 <button type="submit" class="btn btn-danger mb-2"
-                                                    onclick="return confirm('Are you sure you want to delete this category?')">Delete
-                                                    Category</button>
+                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus kategori ini?')">Hapus
+                                                    Kategori</button>
                                             </form>
+
+
+
                                         </div>
                                     </div>
                                 </div>

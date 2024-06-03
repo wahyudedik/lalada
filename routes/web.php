@@ -31,10 +31,11 @@ Route::middleware(['auth', 'adminMiddleware'])->group(function () {
     //category
     Route::get('admin/category', [CategoryController::class, 'index'])->name('admin.category');
     Route::get('admin/category/create', [CategoryController::class, 'create'])->name('admin.category.create');
-    Route::get('admin/category/store', [CategoryController::class, 'store'])->name('admin.category.store');
-    Route::get('admin/category/{category}/edit', [CategoryController::class, 'edit'])->name('admin.category.edit');
-    Route::get('admin/category/{category}/update', [CategoryController::class, 'update'])->name('admin.category.update');
-    Route::get('admin/category/{category}/destroy', [CategoryController::class, 'destroy'])->name('admin.category.destroy');
+    Route::post('admin/category', [CategoryController::class, 'store'])->name('admin.category.store');
+    Route::get('admin/category/edit/{id}', [CategoryController::class, 'edit'])->name('admin.category.edit');
+    Route::put('admin/category/edit/{id}', [CategoryController::class, 'update'])->name('admin.category.update');
+    Route::delete('admin/category/{id}', [CategoryController::class, 'destroy'])->name('admin.category.destroy');
+
     //transaction
     // Route::get('admin/category', [CategoryController::class, 'index'])->name('admin.category');
 });

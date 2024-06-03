@@ -37,7 +37,7 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->description = $request->description;
         $category->save();
-        return redirect()->route('admin.category');
+        return redirect()->route('admin.category')->with('success', 'Category created successfully');
     }
 
     /**
@@ -45,30 +45,44 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        // 
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $categories = Category::all();
+        return view('admin.category_update', compact('category', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'nullable',
+        ]);
+
+        $category = Category::findOrFail($id);
+        $category->update($validatedData);
+
+        return redirect()->route('admin.category')->with('success', 'Category updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        
+        $category = Category::findOrFail($id);
+        $category->delete();
+
+        return redirect()->route('admin.category')->with('success', 'Category deleted successfully');
     }
+
 }
