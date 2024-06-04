@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('quantity')->nullable();
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
+            $table->string('sku')->default('lalada');
             $table->timestamps();
         });
     }

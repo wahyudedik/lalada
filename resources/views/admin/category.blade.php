@@ -51,9 +51,6 @@
                                                     onclick="return confirm('Apakah Anda yakin ingin menghapus kategori ini?')">Hapus
                                                     Kategori</button>
                                             </form>
-
-
-
                                         </div>
                                     </div>
                                 </div>

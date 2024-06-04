@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -12,7 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+       //
     }
 
     /**
@@ -20,7 +21,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('admin.product_create', compact('categories'));
     }
 
     /**
@@ -28,7 +30,28 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required|numeric',
+            'quantity' => 'required|integer',
+            'category_id' => 'required|integer',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:4248',
+            'sale_price' => 'nullable|numeric',
+        ]);
+
+        $product = new Product($validatedData);
+        $product->sku = 'lalada-' . time();
+
+        if ($request->hasFile('image')) {
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('storage/product'), $imageName);
+            $product->image = 'storage/product/' . $imageName;
+        }
+
+        $product->save();
+
+        return redirect()->route('admin.dashboard')->with('success', 'Product created successfully');
     }
 
     /**
