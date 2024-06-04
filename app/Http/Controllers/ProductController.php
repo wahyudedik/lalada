@@ -41,7 +41,9 @@ class ProductController extends Controller
         ]);
 
         $product = new Product($validatedData);
-        $product->sku = 'lalada-' . time();
+        $product->sku = 'lalada' . rand(100, 999);
+        $quantity = $request->quantity;
+        $product->quantity = $quantity;
 
         if ($request->hasFile('image')) {
             $imageName = time() . '.' . $request->image->extension();

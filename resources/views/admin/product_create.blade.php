@@ -16,26 +16,26 @@
                             <input type="text" class="form-control" id="name" name="name">
                         </div>
                         <div class="col-md-6">
-                            <label for="price" class="form-label">Price</label>
-                            <input type="number" class="form-control" id="price" name="price">
-                        </div>
-                        <div class="col-md-6">
                             <label for="description" class="form-label">Description</label>
                             <input type="text" class="form-control" id="description" name="description">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="quantity" class="form-label">Quantity</label>
+                            <input type="number" class="form-control" id="quantity" name="quantity">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="price" class="form-label">Price</label>
+                            <input type="number" class="form-control" id="price" name="price">
                         </div>
                         <div class="col-md-6">
                             <label for="sale_price" class="form-label">Sale Price</label>
                             <input type="number" class="form-control" id="sale_price" name="sale_price">
                         </div>
                         <div class="col-md-6">
-                            <label for="quantity" class="form-label">Quantity</label>
-                            <input type="number" class="form-control" id="quantity" name="quantity" required pattern="^[0-9]+$">
-                        </div>
-                        <div class="col-md-6">
                             <label for="image" class="form-label">Image</label>
                             <input type="file" class="form-control" id="image" name="image">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label for="category_id" class="form-label">Category</label>
                             <select class="form-select" id="category_id" name="category_id">
                                 <option selected>Select Category</option>

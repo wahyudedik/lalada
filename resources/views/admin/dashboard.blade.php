@@ -35,7 +35,7 @@
                     <div class="raw col-lg-12">
                         <div class="row">
                             @foreach ($products as $product)
-                                <div class="col-md-3">
+                                <div class="col-md-3 mb-3">
                                     <div class="card" style="width: 18rem;">
                                         <img src="{{ asset($product->image) }}" class="card-img-top"
                                             alt="{{ $product->name }}">

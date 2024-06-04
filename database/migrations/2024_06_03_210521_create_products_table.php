@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->decimal('sale_price', 8, 2)->nullable();
             $table->string('image')->nullable();
-            $table->integer('quantity')->nullable();
+            $table->integer('quantity')->nullable(); // Jika ingin menggunakan input type number, ubah tipe data menjadi integer.
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->string('sku')->default('lalada');
