@@ -91,27 +91,30 @@
     </div>
 
 
-    {{-- @php
-        $cart = auth()->user()->cart;
+    @php 
+        $carts = App\Models\Cart::where('user_id', auth()->user()->id)->get();
     @endphp
+
     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 100">
         <div class="btn-group dropup">
             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-bag" style="font-size: 24px"></i>
-                @if ($cart)
-                    <span class="badge rounded-pill bg-danger">{{ $cart->count() }}</span>
+                @if ($carts->count() == 0)
+                    <span class="badge rounded-pill bg-danger">0</span>
+                @else
+                    <span class="badge rounded-pill bg-danger">{{ $carts->count() }}</span>
                 @endif
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-                @if ($cart->count() == 0)
+                @if ($carts->count() == 0)
                     <li><a class="dropdown-item" href="#">Empty</a></li>
                 @else
-                    @foreach ($cart->items as $item)
-                        <li><a class="dropdown-item" href="#">{{ $item['product']['name'] }} - {{ $item['qty'] }}</a></li>
+                    @foreach ($carts as $cart)
+                        <li><a class="dropdown-item" href="{{ route('dashboard.cart') }}">{{ $cart->product->name }} - {{ $cart->quantity }}</a></li>
                     @endforeach
                 @endif
             </ul>
         </div>
-    </div> --}}
+    </div>
 
 </x-app-layout>

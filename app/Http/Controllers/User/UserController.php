@@ -17,7 +17,9 @@ class UserController extends Controller
             $product->image = $product->image ? asset($product->image) : null;
             return $product;
         });
-        return view('dashboard', compact('products'))->with('i', (request()->input('page', 1) - 1) * 8); 
+        
+        $carts = Cart::where('user_id', auth()->user()->id)->get();
+        return view('dashboard', compact('products', 'carts'))->with('i', (request()->input('page', 1) - 1) * 8); 
     }
 
     public function addToCart($id)

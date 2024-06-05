@@ -64,6 +64,7 @@
                                         <td>{{ $total }}</td>
                                     </tr>
                                     <tr>
+                                        <td colspan="3" class="text-right"></td>
                                         <td colspan="4" class="text-right">
                                             <form action="{{ route('dashboard.place.order') }}" method="post">
                                                 @csrf
