@@ -59,32 +59,73 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('admin.product_details', compact('product'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $categories = Category::all();
+        return view('admin.product_update', compact('product', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required|numeric',
+            'quantity' => 'required|integer',
+            'category_id' => 'required|integer',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:4248',
+            'sale_price' => 'nullable|numeric',
+            'sku' => 'required',
+        ]);
+
+        $product = Product::findOrFail($id);
+        $quantity = $request->quantity;
+        $product->quantity = $quantity;
+        if ($request->hasFile('image')) {
+            // remove old image
+            if ($product->image) {
+                $imagePath = public_path($product->image);
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+            }
+            // upload new image
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('storage/product'), $imageName);
+            $product->image = 'storage/product/' . $imageName;
+        }
+        $product->update($validatedData);
+
+        return redirect()->route('admin.dashboard')->with('success', 'Product updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        if ($product->image) {
+            $imagePath = public_path($product->image);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+        $product->delete();
+
+        return redirect()->route('admin.dashboard')->with('success', 'Product deleted successfully');
     }
 }

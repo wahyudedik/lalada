@@ -19,17 +19,7 @@
                                     onclick="searchCategories()">Search</button>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <a href="/admin/category/create" class="btn btn-primary float-right">Add Category</a>
-                        </div>
                     </div>
-
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-
 
                     <div class="row">
                         @foreach ($categories->chunk(3) as $chunkOfCategories)
@@ -41,16 +31,7 @@
                                             <p class="card-text">{{ $category->description }}</p>
                                         </div>
                                         <div class="card-footer d-flex flex-column align-items-start">
-                                            <a href="{{ route('admin.category.show', $category->id) }}" class="btn btn-primary mb-2">See Products</a>
-                                            <a href="{{ route('admin.category.edit', $category->id) }}" class="btn btn-secondary mb-2">Update Category</a>
-                                            <form action="{{ route('admin.category.destroy', $category->id) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger mb-2"
-                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus kategori ini?')">Hapus
-                                                    Kategori</button>
-                                            </form>
+                                            <a href="{{ route('dashboard.show.category', $category->id) }}" class="btn btn-primary mb-2">See Products</a>
                                         </div>
                                     </div>
                                 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -43,9 +44,10 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        // 
+        $products = Product::where('category_id', $id)->paginate(8);
+        return view('admin.product_by_category', compact('products'))->with('i', (request()->input('page', 1) - 1) * 8);
     }
 
     /**

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Product') }}
+            {{ __('Product') . ' - ' . $products[0]->category->name }}
         </h2>
     </x-slot>
 
@@ -20,17 +20,8 @@
                                         onclick="searchProduct()">Search</button>
                                 </div>
                             </div>
-                            <div class="col-md-3 ml-end">
-                                <a href="/admin/dashboard/create" class="btn btn-primary">Add Product</a>
-                            </div>
                         </div>
                     </div>
-
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
 
                     <div class="raw col-lg-12">
                         <div class="row">
@@ -49,15 +40,9 @@
                                             <p class="card-text">Category: {{ $product->category->name }}</p>
                                         </div>
                                         <div class="card-footer d-flex flex-column align-items-start">
-                                            <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-secondary mb-2">Update Product</a>
-                                            <form action="{{ route('admin.product.destroy', $product->id) }}"
-                                                method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-danger mb-2"
-                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini?')">Hapus
-                                                    Produk</button>
-                                            </form>
+                                            <a href="{{ route('dashboard.show.product', $product->id) }}" class="btn btn-secondary mb-2">
+                                                Add to Cart
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

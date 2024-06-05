@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -12,7 +13,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $transactions = Order::all();
+        return view('admin/view_transactions', ['transactions' => $transactions]);
     }
 
     /**
@@ -34,9 +36,10 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Order $order)
+    public function show($id)
     {
-        //
+        $order = Order::findOrFail($id);
+        return view('admin/view_transaction_details', ['order' => $order]);
     }
 
     /**

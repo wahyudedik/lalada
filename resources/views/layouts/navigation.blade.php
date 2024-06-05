@@ -12,6 +12,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+
                     {{-- nav link admin --}}
                     @if (Auth::user()->usertype == 'admin')
                         <x-nav-link :href="Auth::user()->usertype == 'admin' ? route('admin.dashboard') : route('dashboard')" :active="Auth::user()->usertype == 'admin' ? request()->routeIs('admin.dashboard') : request()->routeIs('dashboard')">
@@ -21,12 +22,19 @@
                         <x-nav-link href="/admin/category" :active="request()->routeIs('admin.category')">
                             {{ __('Category') }}
                         </x-nav-link>
+
+                        <x-nav-link href="/admin/view-transaction" :active="request()->routeIs('admin.view.transaction')">
+                            {{ __('View Transaction') }}
+                        </x-nav-link>
                     @endif
 
                     {{-- nav link user --}}
                     @if (Auth::user()->usertype == 'member')
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Product') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('dashboard.category')" :active="request()->routeIs('dashboard.category')">
+                            {{ __('Category') }}
                         </x-nav-link>
                     @endif
                 </div>
