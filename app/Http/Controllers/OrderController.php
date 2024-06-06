@@ -13,7 +13,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $transactions = Order::all();
+        $transactions = Order::orderBy('created_at', 'desc')->get();
         return view('admin/view_transactions', ['transactions' => $transactions]);
     }
 

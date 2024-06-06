@@ -47,7 +47,11 @@ class CategoryController extends Controller
     public function show($id)
     {
         $products = Product::where('category_id', $id)->paginate(8);
-        return view('admin.product_by_category', compact('products'))->with('i', (request()->input('page', 1) - 1) * 8);
+        if ($products->isEmpty()) {
+            return redirect()->route('admin.category')->with('error', 'Category has no product');
+        } else {
+            return view('admin.product_by_category', compact('products'))->with('i', (request()->input('page', 1) - 1) * 8);
+        }
     }
 
     /**

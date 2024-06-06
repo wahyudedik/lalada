@@ -98,7 +98,7 @@
     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 100">
         <div class="btn-group dropup">
             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-bag" style="font-size: 24px"></i>
+                <i class="fa-solid fa-shopping-bag fa-2x"></i>
                 @if ($carts->count() == 0)
                     <span class="badge rounded-pill bg-danger">0</span>
                 @else

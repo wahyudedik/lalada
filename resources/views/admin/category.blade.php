@@ -30,6 +30,12 @@
                         </div>
                     @endif
 
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
 
                     <div class="row">
                         @foreach ($categories->chunk(3) as $chunkOfCategories)

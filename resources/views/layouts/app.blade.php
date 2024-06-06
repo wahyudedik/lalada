@@ -17,6 +17,9 @@
         <!-- Bootstrap Icons -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.16.1/font/bootstrap-icons.css">
 
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlGCSfJEKR4kH7zhy4CWaAOK2/l8nTDPnjT2lBZiBjl3D+R6l5Pc6ZZpjm2nXpX96pu9q2nw2/mSbpU/g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
